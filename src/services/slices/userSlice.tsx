@@ -12,7 +12,6 @@ import {
   updateUserApi
 } from '../../utils/burger-api';
 
-// Константы для сообщений об ошибках
 const ERROR_MESSAGES = {
   USER_LOAD_FAILED: 'Не удалось загрузить пользователя',
   USER_UPDATE_FAILED: 'Ошибка обновления пользователя',
@@ -43,7 +42,7 @@ export const checkUser = createAsyncThunk<void>(
     const hasToken = !!getCookie('accessToken');
 
     if (hasToken) {
-      dispatch(getUser()); // Без ожидания ответа
+      dispatch(getUser());
     }
 
     dispatch(authChecked());
@@ -81,8 +80,7 @@ export const userLogout = createAsyncThunk('user/logout', async () => {
   const response = await logoutApi();
   deleteCookie('accessToken');
   localStorage.clear();
-  console.log('очищено');
-  return response; // Возвращаем результат
+  return response;
 });
 
 export const userSlice = createSlice({
@@ -171,7 +169,6 @@ export const userSlice = createSlice({
   }
 });
 
-// Простые селекторы для доступа к состоянию пользователя
 export const selectUser = (state: { user: IUserSlice }) => state.user.user;
 export const { authChecked } = userSlice.actions;
 
